@@ -1,4 +1,4 @@
-本作業要求閱讀 [计算机教育中缺失的一课](https://missing-semester-cn.github.io/) ，並完成
+作業要求閱讀 [计算机教育中缺失的一课](https://missing-semester-cn.github.io/) ，並完成
 
 - 课程概览与shell
 - Shell工具和脚本
@@ -79,5 +79,62 @@ echo "第 $count 時失敗"
 無
 
 ## 数据整理
+`journalctl` 能印出所有 ststemd 服務的 log。
+
+`ssh user@host 指令` 就能直接執行遠端主機上的指令，竟如此簡單！
+
+### 練習 2
+```
+cat /usr/share/dict/words | tr 'A-Z' 'a-z' | rg '^.*a.*a.*a.*$' | rev | cut -c -2 | rev | sort | uniq | wc -l
+```
+
+### 練習 3
+輸入輸出同時操作可能導致資料損毀。
+
+### 練習 4
+抓不到啓動 Log，需要額外設置才能記錄過去的開機記錄。
+### 練習 5
+
 ## 命令行环境
+`jobs` 可列出當前終端未完成的任務。
+
+終端（連線）關閉時會對在終端執行的程序發送 `SIGHUP` 。 `nohup` 僅僅是用來忽略 `SIGHUP` 的一層包裝。
+
+tmux 快捷鍵
+- `<prefix> ,` 可重命名窗口。
+- `<prefix> w` 列出所有窗口。
+
+### 練習 任務控制
+
+1.
+```sh
+pgrep -af sleep # -af 用來顯示進程名及參數
+pkill  sleep
+```
+2.
+```sh
+function pidwait() {
+    while true;
+    do
+        kill -0 $1
+        code=$?
+        if [ $code != 0 ];
+        then
+            break
+        fi
+        sleep 1
+    done
+}
+```
+
+### 別名
+1. `alias dc=cd`
+
+### 配置文件
+
+https://github.com/MROS/dotfiles
+
+
 ## 版本控制(Git)
+
+`git log -[n] [file]` 可以看到最新 n 次改到 [file] 的 commit 。
